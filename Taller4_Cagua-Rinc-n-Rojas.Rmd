@@ -1,0 +1,61 @@
+---
+title: "Taller 4 - Análisis descriptivo"
+author: "Cagua, Rincón, Rojas"
+date: "15/5/2021"
+output: word_document
+---
+
+
+## **Activación de paquetes**
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(lubridate)
+library(haven)
+library(readxl)
+library(knitr)
+library(wbstats)
+library(naniar)
+library(ggplot2)
+library(scales)
+```
+
+ 
+## **Desarrollo del taller**
+
+**Punto 1:** _Carguen la(s) base(s) de datos usando la función que corresponda de los paquetes readr, readxl o haven_
+
+**Punto 2:** _De ser necesario, asegúrense que la base de datos esté lista para el análisis, usando la(s) funion(es) del paquete tidyr que correspondan. Sean cuidadosos con la eliminación de los valores faltantes. No los eliminen salvo que lo consideren esencial de manera justificada_
+
+**Punto 3:** _Si están usando datos provenientes de más de una base de datos, unan las bases de datos usando la función que corresponda del paquete dplyr_
+
+```{r}
+BasesWB <- list.files("WB/")
+
+for (i in seq_along(BasesWB)) {
+  datos <- read_xlsx(paste0("WB/", BasesWB[i]), skip = 3)
+  datos <- datos %>% select("Country Name", "1998", "2018")
+  datos <- datos %>% rename(Pais = `Country Name`)
+  assign(BasesWB[i],datos)
+}
+
+WB <- left_join(Industria.xlsx, left_join(Ingreso.xlsx, Poblacion.xlsx, by = "Pais"), by = "Pais")
+
+BasesWBG <- list.files("WBG/")
+
+for (i in seq_along(BasesWBG)) {
+  datos <- read_xlsx(paste0("WBG/", BasesWBG[i]))
+  datos <- datos %>% select("country", "1998", "2018")
+  datos <- datos %>% rename(Pais = `country`)
+  assign(BasesWBG[i],datos)
+}
+
+WBG <- left_join(Emision.xlsx, IDH.xlsx, by = "Pais")
+Base_Final <- left_join(WB, WBG, by = "Pais")
+Base_Final <- drop_na(Base_Final)
+```
+
+
+**Punto 4:** _De ser necesario, modifiquen las variables de interés usando el paquete dplyr para asegurar lo siguiente_
+
+
