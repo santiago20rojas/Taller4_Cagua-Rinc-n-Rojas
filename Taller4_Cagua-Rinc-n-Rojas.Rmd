@@ -58,4 +58,44 @@ Base_Final <- drop_na(Base_Final)
 
 **Punto 4:** _De ser necesario, modifiquen las variables de interés usando el paquete dplyr para asegurar lo siguiente_
 
+  + Las variables deben ser adecuadamente identificadas por R según su tipo. Por ejemplo, todas las variables numéricas (continuas y discretas), deben identificarse como tal y no como carácteres, y todas las variables categóricas deben identificarse por R como factores ordenados o no ordenados, según el caso.
+  + La variables deben tener nombres que sean fáciles de entender. Por ejemplo, si la variable de género se llama P6020, deben modificar el nombre para que sea fácil entender cuál es el contenido de la variable
+  + Las variables binarias deben tener valores de 0 o 1. El valor de 1 debe corresponder con el nombre de la variable. Por ejemplo, si la variable se llama mujer, 1 corresponde a las mujeres y 0 a los hombres, o si la variable se llama bachiller, 1 debe corresponder a quienes son bachilleres y 0 a quienes no
+ 
+```{r}
+Base_Final <- Base_Final %>% rename(Industria98 = `1998`, Industria18 = `2018`, Ingreso98 = `1998.x.x`, Ingreso18 = `2018.x.x`, Poblacion98 = `1998.y.x`, Poblacion18 = `2018.y.x`, Emision98 = `1998.x.y`, Emision18 = `2018.x.y`, IDH98 = `1998.y.y`, IDH18 = `2018.y.y`)
+```
+
+
+```{r}
+for (i in Base_Final) {
+  class(paste0("Base_Final$",Base_Final[i]))
+  print()
+}
+```
+
+
+**Punto 5:** _Usen alguna de las siguientes funciones para realizar una tabla de estadísticas descriptivas para las variables que van a incluir en su estudio, según sus necesidades: summarize, statdesc(), summary(), stargazer(), datasummary() o datasummary_balance. Si su variable dependiente o la principal variable independiente es una variable categórica, realice una distribución de frecuencias que incluya las frecuencias absoluta y relativa, y de ser el caso, las frecuencias absoluta y relativa acumuladas. Incluya esta tabla en el RMarkdown usando la función kable del paquete knitr, o stargazer directamente, según sea el caso_
+
+```{r}
+stargazer(as.data.frame(datos), type = "text",
+          out = "tabla1.tex",
+          title = "Tabla 1 - Estadísticas Descriptivas")
+```
+
+
+**Punto 6:** _Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa o categórica, para la variable dependiente y para la principal variable independiente. Las gráficas las deben realizar usando el paquete ggplot, y deben modificarlas en cuanto a número de bins, títulos, subtítulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información_
+
+
+
+**Punto 7:** _Para las variables cuantitativas (continuas y discretas), calculen la correlación entre cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones. Para las variables categóricas hagan una tabla cruzada para cada par de variables. En ambos casos, comente sobre los resultados más relevantes_
+
+
+
+**Punto 8:** _Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una gráfica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete ggplot, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información. Siga las siguientes recomendaciones:_
+ 
+  + Sí las dos variables son cuantitativas el gráfico debe ser un diagrama de dispersión._
+  + Sí las dos variables son categóricas el gráfico debe ser un gráfico de barras que permita visualizar las dos variables_
+  +  Sí una variable es cuantitativa y la otra categórica, en un mismo gráfico realice un polígono de frecuencias, una densidad o un diagrama de cajas de la variable cuantitativa para cada una de las categorías de la variable categórica. Por ejemplo, si fueran a analizar la relación entre el tipo de colegio y el puntaje, deberían hacer un polígono de frecuencias, una densidad o un diagrama de cajas para el puntaje para los colegios públicos y otro para los colegios privados. Ambos polígonos o densidades deberían estar en la misma gráfica (i.e. mismo plano cartesiano) para poder apreciar las diferencias en la distribución de los puntajes de los estudiantes de ambos tipos de colegios. Si la variable categórica tuviera más de tres categorías, la gráfica podría hacerse con una función facet_
+
 
