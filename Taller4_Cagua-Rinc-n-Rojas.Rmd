@@ -1,7 +1,7 @@
 ---
 title: "Taller 4 - Análisis descriptivo"
-author: "Cagua, Rincón, Rojas"
-date: "15/5/2021"
+author: "Juliana Andrea Cagua Vega, María Paula Rincón Cepeda, Santiago Rojas Gómez"
+date: "16/05/2021"
 output: word_document
 ---
 
@@ -206,7 +206,7 @@ ggarrange(e1, e2)
 
 **Punto 7:** _Para las variables cuantitativas (continuas y discretas), calculen la correlación entre cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones. Para las variables categóricas hagan una tabla cruzada para cada par de variables. En ambos casos, comente sobre los resultados más relevantes_
 
-**Punto 8:** _Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una gráfica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete ggplot, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información. Siga las siguientes recomendaciones:_
+**Punto 8:** _Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una gráfica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete ggplot, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información._
 
 
 ```{r}
@@ -229,9 +229,24 @@ Respecto a la correlación entre la variable dependiente (Emisión18) y las vari
 
 Comparado con el año anterior, se observa un aumento mínimo en la correlación de la Emisión y la industria pero una disminución de casi un punto con el IDH y el logaritmo natural de los ingresos. Por otro lado, para el año 2018, la relación con el logaritmo natural de la población sigue siendo baja pero ahora es inversa. 
 
-**Punto 9:** _Usando la información presentada en las preguntas 6 a 9, ¿qué concluyen sobre la distribución de sus variables de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres párrafos.:_
+**Punto 9:** _Usando la información presentada en las preguntas 6 a 8, ¿qué concluyen sobre la distribución de sus variables de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres párrafos.:_
 
 
-El diagrama de dispersión muestra la relación entre las variables. La distribución de los puntos indica la independencia de una variable con respecto a la otra, es decir, si existe relación fuerte, débil o intermedia dependiendo de la tendencia de los puntos. Por otro lado, el histograma presenta las frecuencias de cada variable y sirve para determinar su distribución, en otros términos, sirve para conocer si se presentan sesgos en la variables o si están distribuidos de forma normal.
+El histograma presenta las frecuencias de cada variable y sirve para determinar su distribución, en otros términos, sirve para conocer si se presentan sesgos en la variables o si están distribuidos de forma normal.De acuerdo con los histogramas del Punto 6 que nos permiten realizar una comparación de la distribución de las variables en dos periodos de tiempo diferentes (1998 y 2018), podemos concluir lo siguiente:
 
+  + Industria:Para el año 1998 se evidencia un sesgo positivo o a la derecha, presentando datos atípicos. Por otro lado, el comportamiento de la variable industria para el año 2018, es mas cercano a una distribución normal pues no hay un fuerte sesgo en la gráfica.
+
+  + Logaritmo de la población: Esta variable presenta una distribución cercana a la normal para ambos años pero se evidencia una mayor agrupación de datos  en el lado izquierdo. Adicionalmente se presentan datos atípicos en la parte derecha del gráfico.
+
+  + Logaritmo del ingreso per cápita: Se observa que no presentan una distribución acampanada sino que esta es plana, lo cual podría indicar la presencia de errores en la medición.
+
+  + IDH: Se evidencia un leve sesgo hacia la izquierda para el año 1998, mientras que para el año 2018, la distribución no presenta forma acampanada por lo cual se deduce que puede existir un problema en la medición de la variable.
+  
+  + Emisión de CO2: El año 1998 y 2018 presentan un sesgo a la derecha, es decir, tienen un sesgo positivo.
+
+
+Con respecto al diagrama de dispersión que muestra la relación entre las variables;la distribución de los puntos indica la independencia de una variable con respecto a la otra, es decir, si existe relación fuerte, débil o intermedia dependiendo del comportamiento de la variable. Para el año 1998, se observa que 
+La variable Industria98 presenta una mayor agrupación de la nube de puntos en el lado izquierdo con respecto a todas las variables (Emisión98, IDH98, Ln_Ingreso98, Ln_Poblacion98), mientras que la variable Ln_Poblacion98 no muestra una relación con respecto al IDH98 y Ln_Ingreso98, dada la alta dispersión que se observa, así como tampoco se evidencia una relación débil con Industria98 y Emisión98. Respecto a la Emisión se muestra una relación exponencial con las variables IDH y el Ingreso Per cápita. Es decir, a medida que aumentan estas últimas variables, se espera que la emisión de co2 aumente. Por otro lado la dispersión del IDH98 con Ln_Ingreso98 presenta una relación fuerte y positiva, esta puede ser explicada por que el IDH tiene en cuenta los ingresos per cápita.
+
+Para el año 2018, se evidencia una mayor dispersión entre variables con respecto al año 1998; en términos de la variable Industria18, no se evidencia una relación entre Ln_Población18, IDH18 y Ln_Ingreso18.Por otro lado, la variable Emision18 presenta una relación con todas las variables. Respecto a la relación con la Industria18 se observa una dispersión centrada en el límite inferior; con IDH18 y el Ln_Ingreso18, se presenta una relación exponencial  y, con Ln_Población18 los valores están concentrados en la parte izquierda de la gráfica. Por último, el IDH18 con Ln_Ingreso18, así como en el año presentado anteriormente, tienen una fuerte relación lineal.
 
