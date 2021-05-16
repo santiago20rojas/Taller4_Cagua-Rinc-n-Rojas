@@ -117,8 +117,8 @@ ggarrange(a1, a2)
 ```{r}
 b1 <- ggplot(data = Base_Final, 
   mapping = aes(x = Ln_Poblacion98)) +
-    geom_histogram(bins = 50, fill = "lightpink2", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "darkslategray4", color = "black") + 
+      geom_freqpoly(bins = 50, color = "darkorchid3") +
             labs(title = "Histograma de Población (Logaritmo) para 1998", x = "Logaritmo Población - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
 
@@ -126,8 +126,8 @@ b1 <- ggplot(data = Base_Final,
 
 b2 <- ggplot(data = Base_Final, 
   mapping = aes(x = Ln_Poblacion18)) +
-    geom_histogram(bins = 50, fill = "lightpink2", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "darkslategray4", color = "black") + 
+      geom_freqpoly(bins = 50, color = "darkorchid3") +
             labs(title = "Histograma de Población (Logaritmo) para 2018", x = "Logaritmo Población - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
 
@@ -138,8 +138,8 @@ ggarrange(b1, b2)
 ```{r}
 c1 <- ggplot(data = Base_Final, 
   mapping = aes(x = Ln_Ingreso98)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "mediumseagreen", color = "black") + 
+      geom_freqpoly(bins = 50, color = "mediumpurple4") +
             labs(subtitle = "Histograma de Ingreso per capita 
                  (Logaritmo) para 1998", x = "Logaritmo Ingreso per capita - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
@@ -148,8 +148,8 @@ c1 <- ggplot(data = Base_Final,
 
 c2 <- ggplot(data = Base_Final, 
   mapping = aes(x = Ln_Ingreso18)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "mediumseagreen", color = "black") + 
+      geom_freqpoly(bins = 50, color = "mediumpurple4") +
             labs(subtitle = "Histograma de Ingreso per capita
                  (Logaritmo) para 2018", x = "Logaritmo Ingreso per capita - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
@@ -161,8 +161,8 @@ ggarrange(c1, c2)
 ```{r}
 d1 <- ggplot(data = Base_Final, 
   mapping = aes(x = IDH98)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "pink3", color = "black") + 
+      geom_freqpoly(bins = 50, color = "bisque4") +
             labs(subtitle = "Histograma de IDH para 1998", x = "IDH - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
 
@@ -170,8 +170,8 @@ d1 <- ggplot(data = Base_Final,
 
 d2 <- ggplot(data = Base_Final, 
   mapping = aes(x = IDH18)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "pink3", color = "black") + 
+      geom_freqpoly(bins = 50, color = "bisque4") +
             labs(subtitle = "Histograma de IDH para 2018", x = "IDH - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
 
@@ -182,8 +182,8 @@ ggarrange(d1, d2)
 ```{r}
 e1 <- ggplot(data = Base_Final, 
   mapping = aes(x = Emision98)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "darkslategray4", color = "black") + 
+      geom_freqpoly(bins = 50, color = "gray48") +
             labs(subtitle = "Histograma de Emisiones de CO2
                  per capita para 1998", x = "Emisiones CO2 - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
@@ -192,8 +192,8 @@ e1 <- ggplot(data = Base_Final,
 
 e2 <- ggplot(data = Base_Final, 
   mapping = aes(x = Emision18)) +
-    geom_histogram(bins = 50, fill = "blue", color = "black") + 
-      geom_freqpoly(bins = 50, color = "midnightblue") +
+    geom_histogram(bins = 50, fill = "darkslategray4", color = "black") + 
+      geom_freqpoly(bins = 50, color = "gray48") +
             labs(subtitle = "Histograma de Emisiones de CO2
                  per capita para 2018", x = "Emisiones CO2 - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
   scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
@@ -213,18 +213,18 @@ ggarrange(e1, e2)
 ```{r}
 Base_Final98 <- Base_Final %>% 
   select(ends_with("98"))
-ggpairs(Base_Final98)
+ggpairs(Base_Final98,diag = list(continuous = wrap("barDiag", fill = "lightblue", colour= "black")))+ labs(title = "Diagrama de dispersión y correlograma de variables de estudio para 1998", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
 ```
 
 
 ```{r}
 Base_Final18 <- Base_Final %>% 
   select(ends_with("18"))
-ggpairs(Base_Final18)
+ggpairs(Base_Final18,diag = list(continuous = wrap("barDiag", fill = "peachpuff2", colour= "black")))+ labs(title = "Diagrama de dispersión y correlograma de variables de estudio para 2018", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
 ```
 
 
-
+**Punto 9:** _Usando la información presentada en las preguntas 6 a 9, ¿qué concluyen sobre la distribución de sus variables de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres párrafos.:_
 
 
 
