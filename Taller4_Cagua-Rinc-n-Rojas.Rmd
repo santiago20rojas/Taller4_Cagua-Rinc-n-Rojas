@@ -113,7 +113,6 @@ a2 <- ggplot(data = Base_Final,
 ggarrange(a1, a2)
 ```
 
-
 ```{r}
 b1 <- ggplot(data = Base_Final, 
   mapping = aes(x = Ln_Poblacion98)) +
@@ -213,18 +212,26 @@ ggarrange(e1, e2)
 ```{r}
 Base_Final98 <- Base_Final %>% 
   select(ends_with("98"))
-ggpairs(Base_Final98,diag = list(continuous = wrap("barDiag", fill = "lightblue", colour= "black")))+ labs(title = "Diagrama de dispersión y correlograma de variables de estudio para 1998", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
+ggpairs(Base_Final98,diag = list(continuous = wrap("barDiag", fill = "lightblue", colour= "black")))+ labs(title = "Diagrama de dispersión, histograma y correlación de variables de estudio para 1998", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
 ```
 
+Estadísticamente se usa la correlación entre variables para estudiar similitudes en su comportamiento. Cuando el coeficiente de correlación es positivo cercano a 0.5, indica una relación positiva moderada y entre más cercano a 1.0, indica una relación positiva perfecta entre las variables. Por otro lado, entre más cercano sea el coeficiente de correlación a 0.0, indica una relación nula entre estas, mientras que si el coeficiente es negativo, indica una relación inversa entre las variables.
+
+Teniendo en cuenta lo mencionado anteriormente, respecto a la correlación entre la variable dependiente (Emisión98) y las variables independientes (IDH98, Ln_Ingreso98,Ln_Población98 y la industria98) se observa que la relación con el logaritmo natural de la población y con la industria es baja presentando un coeficiente de 0.077 y 0.209, respectivamente. No obstante, la relación con el IDH y el logaritmo natural de los ingresos es alta representando valores de 0.723 y 0.789, respectivamente. 
 
 ```{r}
 Base_Final18 <- Base_Final %>% 
   select(ends_with("18"))
-ggpairs(Base_Final18,diag = list(continuous = wrap("barDiag", fill = "peachpuff2", colour= "black")))+ labs(title = "Diagrama de dispersión y correlograma de variables de estudio para 2018", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
+ggpairs(Base_Final18,diag = list(continuous = wrap("barDiag", fill = "peachpuff2", colour= "black")))+ labs(title = "Diagrama de dispersión, histograma y correlación de variables de estudio para 2018", caption = "Fuente: Elaboración propia con datos del Banco Mundial")
 ```
 
+Respecto a la correlación entre la variable dependiente (Emisión18) y las variables independientes (IDH18, Ln_Ingreso18,Ln_Población18 y la industria18) se observa que la relación con logaritmo natural de la población es baja e inversa (-0.064) y para la industria es baja y positiva con un coeficiente de 0.273. Adicionalmente, la correlación con el IDH y el logaritmo natural de los ingresos es alta representando valores de 0.620 y 0.648, respectivamente. 
+
+Comparado con el año anterior, se observa un aumento mínimo en la correlación de la Emisión y la industria pero una disminución de casi un punto con el IDH y el logaritmo natural de los ingresos. Por otro lado, para el año 2018, la relación con el logaritmo natural de la población sigue siendo baja pero ahora es inversa. 
 
 **Punto 9:** _Usando la información presentada en las preguntas 6 a 9, ¿qué concluyen sobre la distribución de sus variables de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres párrafos.:_
 
+
+El diagrama de dispersión muestra la relación entre las variables. La distribución de los puntos indica la independencia de una variable con respecto a la otra, es decir, si existe relación fuerte, débil o intermedia dependiendo de la tendencia de los puntos. Por otro lado, el histograma presenta las frecuencias de cada variable y sirve para determinar su distribución, en otros términos, sirve para conocer si se presentan sesgos en la variables o si están distribuidos de forma normal.
 
 
