@@ -10,18 +10,20 @@ output: word_document
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(lubridate)
-library(haven)
 library(readxl)
 library(knitr)
-library(wbstats)
-library(naniar)
 library(ggplot2)
 library(scales)
+library(stargazer)
+library(ggthemes)
+library(GGally)
+library(ggpubr)
 ```
 
  
 ## **Desarrollo del taller**
+
+**Nota:** _Con el código propuesto a continuación, se desarrolló el Punto 1, Punto 2 y Punto 3_
 
 **Punto 1:** _Carguen la(s) base(s) de datos usando la función que corresponda de los paquetes readr, readxl o haven_
 
@@ -61,41 +63,168 @@ Base_Final <- drop_na(Base_Final)
   + Las variables deben ser adecuadamente identificadas por R según su tipo. Por ejemplo, todas las variables numéricas (continuas y discretas), deben identificarse como tal y no como carácteres, y todas las variables categóricas deben identificarse por R como factores ordenados o no ordenados, según el caso.
   + La variables deben tener nombres que sean fáciles de entender. Por ejemplo, si la variable de género se llama P6020, deben modificar el nombre para que sea fácil entender cuál es el contenido de la variable
   + Las variables binarias deben tener valores de 0 o 1. El valor de 1 debe corresponder con el nombre de la variable. Por ejemplo, si la variable se llama mujer, 1 corresponde a las mujeres y 0 a los hombres, o si la variable se llama bachiller, 1 debe corresponder a quienes son bachilleres y 0 a quienes no
+
+_Renombrar las variables acorde a su información_
  
 ```{r}
 Base_Final <- Base_Final %>% rename(Industria98 = `1998`, Industria18 = `2018`, Ingreso98 = `1998.x.x`, Ingreso18 = `2018.x.x`, Poblacion98 = `1998.y.x`, Poblacion18 = `2018.y.x`, Emision98 = `1998.x.y`, Emision18 = `2018.x.y`, IDH98 = `1998.y.y`, IDH18 = `2018.y.y`)
 ```
 
+_Aplicar logaritmo natural a las variables establecidas en el modelo y seleccionar las variables a utilizar_
 
 ```{r}
-for (i in Base_Final) {
-  class(paste0("Base_Final$",Base_Final[i]))
-  print()
-}
+Base_Final <- Base_Final %>% mutate(Ln_Ingreso98 = log(Ingreso98), Ln_Ingreso18 = log(Ingreso18), Ln_Poblacion98 = log(Poblacion98), Ln_Poblacion18 = log(Poblacion18))
+
+Base_Final <- Base_Final %>% select(c("Pais", "Industria98", "Industria18", "Emision98", "Emision18", "IDH98", "IDH18", "Ln_Ingreso98", "Ln_Ingreso18", "Ln_Poblacion98", "Ln_Poblacion18")) 
+```
+
+_Verificar la clase de cada una de las variables_
+
+```{r}
+str(Base_Final)
 ```
 
 
 **Punto 5:** _Usen alguna de las siguientes funciones para realizar una tabla de estadísticas descriptivas para las variables que van a incluir en su estudio, según sus necesidades: summarize, statdesc(), summary(), stargazer(), datasummary() o datasummary_balance. Si su variable dependiente o la principal variable independiente es una variable categórica, realice una distribución de frecuencias que incluya las frecuencias absoluta y relativa, y de ser el caso, las frecuencias absoluta y relativa acumuladas. Incluya esta tabla en el RMarkdown usando la función kable del paquete knitr, o stargazer directamente, según sea el caso_
 
 ```{r}
-stargazer(as.data.frame(datos), type = "text",
-          out = "tabla1.tex",
-          title = "Tabla 1 - Estadísticas Descriptivas")
+stargazer(as.data.frame(Base_Final), type = "text", out = "tabla1.tex", title = "Tabla 1 - Estadísticas Descriptivas")
 ```
-
 
 **Punto 6:** _Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa o categórica, para la variable dependiente y para la principal variable independiente. Las gráficas las deben realizar usando el paquete ggplot, y deben modificarlas en cuanto a número de bins, títulos, subtítulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información_
 
 
+```{r}
+a1 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Industria98)) +
+    geom_histogram(bins = 50, fill = "steelblue3", color = "black") + 
+      geom_freqpoly(bins = 50, color = "chocolate1") +
+            labs(title = "Histograma de Industria para 1998", x = "Industria (% PIB) - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
+  scale_y_continuous(breaks = seq(from = 0, to = 15, by = 5))
+
+
+a2 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Industria18)) +
+    geom_histogram(bins = 50, fill = "steelblue3", color = "black") + 
+      geom_freqpoly(bins = 50, color = "chocolate1") +
+            labs(title = "Histograma de Industria para 2018", x = "Industria (% PIB) - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 15, by = 5))
+
+ggarrange(a1, a2)
+```
+
+
+```{r}
+b1 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Ln_Poblacion98)) +
+    geom_histogram(bins = 50, fill = "lightpink2", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(title = "Histograma de Población (Logaritmo) para 1998", x = "Logaritmo Población - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+
+
+b2 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Ln_Poblacion18)) +
+    geom_histogram(bins = 50, fill = "lightpink2", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(title = "Histograma de Población (Logaritmo) para 2018", x = "Logaritmo Población - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+ggarrange(b1, b2)
+```
+
+
+```{r}
+c1 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Ln_Ingreso98)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de Ingreso per capita 
+                 (Logaritmo) para 1998", x = "Logaritmo Ingreso per capita - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+
+
+c2 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Ln_Ingreso18)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de Ingreso per capita
+                 (Logaritmo) para 2018", x = "Logaritmo Ingreso per capita - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+ggarrange(c1, c2)
+```
+
+
+```{r}
+d1 <- ggplot(data = Base_Final, 
+  mapping = aes(x = IDH98)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de IDH para 1998", x = "IDH - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+
+
+d2 <- ggplot(data = Base_Final, 
+  mapping = aes(x = IDH18)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de IDH para 2018", x = "IDH - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+ggarrange(d1, d2)
+```
+
+
+```{r}
+e1 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Emision98)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de Emisiones de CO2
+                 per capita para 1998", x = "Emisiones CO2 - 1998", y = "Frecuencia", caption = "Fuente: Banco Mundial") +
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+
+
+e2 <- ggplot(data = Base_Final, 
+  mapping = aes(x = Emision18)) +
+    geom_histogram(bins = 50, fill = "blue", color = "black") + 
+      geom_freqpoly(bins = 50, color = "midnightblue") +
+            labs(subtitle = "Histograma de Emisiones de CO2
+                 per capita para 2018", x = "Emisiones CO2 - 2018", y = "Frecuencia", caption = "Fuente: Banco Mundial") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 10, by = 5))
+
+ggarrange(e1, e2)
+```
+
+
+
+**Nota:** _Con el código propuesto a continuación, se desarrolló el Punto 7 y Punto 8_
 
 **Punto 7:** _Para las variables cuantitativas (continuas y discretas), calculen la correlación entre cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones. Para las variables categóricas hagan una tabla cruzada para cada par de variables. En ambos casos, comente sobre los resultados más relevantes_
 
-
-
 **Punto 8:** _Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una gráfica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete ggplot, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información. Siga las siguientes recomendaciones:_
- 
-  + Sí las dos variables son cuantitativas el gráfico debe ser un diagrama de dispersión._
-  + Sí las dos variables son categóricas el gráfico debe ser un gráfico de barras que permita visualizar las dos variables_
-  +  Sí una variable es cuantitativa y la otra categórica, en un mismo gráfico realice un polígono de frecuencias, una densidad o un diagrama de cajas de la variable cuantitativa para cada una de las categorías de la variable categórica. Por ejemplo, si fueran a analizar la relación entre el tipo de colegio y el puntaje, deberían hacer un polígono de frecuencias, una densidad o un diagrama de cajas para el puntaje para los colegios públicos y otro para los colegios privados. Ambos polígonos o densidades deberían estar en la misma gráfica (i.e. mismo plano cartesiano) para poder apreciar las diferencias en la distribución de los puntajes de los estudiantes de ambos tipos de colegios. Si la variable categórica tuviera más de tres categorías, la gráfica podría hacerse con una función facet_
+
+
+```{r}
+Base_Final98 <- Base_Final %>% 
+  select(ends_with("98"))
+ggpairs(Base_Final98)
+```
+
+
+```{r}
+Base_Final18 <- Base_Final %>% 
+  select(ends_with("18"))
+ggpairs(Base_Final18)
+```
+
+
+
+
 
 
